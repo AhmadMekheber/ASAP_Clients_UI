@@ -1,12 +1,3 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <style>
   :host {
     --bright-blue: oklch(51.01% 0.274 263.83);
@@ -173,22 +164,31 @@
       margin-block: 1.5rem;
     }
   }
+
+  .warning-message {
+  display: block;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  font-size: 18px; /* Adjust size as needed */
+  padding: 10px; /* Adjust padding as needed */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  margin-bottom: 10px; /* Adjust margin as needed */
+}
 </style>
 
 <main class="main">
   <div class="content">
     <form novalidate #myForm="ngForm">
-      <kendo-grid [data]="gridItems | async" [pageSize]="pageSize" [skip]="skip" [pageable]="true"
-        (pageChange)="pageChange($event)" [sortable]="true" [sort]="sortDescriptor"
-        (sortChange)="handleSortChange($event)" [height]="600"
-        (add)="addHandler($event, myForm)"
-        (edit)="editHandler($event)"
-        (cancel)="cancelHandler($event)"
-        (save)="saveHandler($event)">
+      <span *ngIf="failureMsg" class="warning-message">{{failureMsg}}</span>
+      <kendo-grid #clientsGrid [kendoGridBinding]="gridData" [pageSize]="pageSize" [skip]="skip" [pageable]="true"
+        [filterable]="true" (filterChange)="filterChangeHandler($event)" (sortChange)="sortChangeHandler($event)"
+        [sortable]="true" [sort]="sortDescriptor" [height]="600" (add)="addHandler($event, myForm)"
+        (edit)="editHandler($event)" (cancel)="cancelHandler($event)" (save)="saveHandler($event)"
+        (remove)="removeHandler($event)">
         <ng-template kendoGridToolbarTemplate>
           <button kendoGridAddCommand type="button">Add new</button>
         </ng-template>
-        <!-- <kendo-grid-column field="id" title="ID"></kendo-grid-column> -->
         <kendo-grid-column field="firstName" title="First Name">
           <ng-template kendoGridEditTemplate let-dataItem="dataItem">
             <kendo-textbox [(ngModel)]="dataItem.firstName" name="firstName" required></kendo-textbox>
@@ -201,26 +201,24 @@
         </kendo-grid-column>
         <kendo-grid-column field="email" title="Email">
           <ng-template kendoGridEditTemplate let-dataItem="dataItem">
-            <kendo-textbox [(ngModel)]="dataItem.email" name="email" required></kendo-textbox>
+            <kendo-textbox [(ngModel)]="dataItem.email" name="email" required
+              pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.(?:[a-zA-Z0-9-]*[a-zA-Z0-9])+$"></kendo-textbox>
           </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="phoneNumber" title="Phone Number">
           <ng-template kendoGridEditTemplate let-dataItem="dataItem">
-            <kendo-textbox [(ngModel)]="dataItem.phoneNumber" name="phoneNumber" required></kendo-textbox>
+            <kendo-textbox [(ngModel)]="dataItem.phoneNumber" name="phoneNumber" required
+              pattern="^(?:\+?\d{1,3}( )?)?\(?\d{3}\)?[-\.]?\d{3}[-\.]?\d{4}$"></kendo-textbox>
           </ng-template>
         </kendo-grid-column>
 
-        <kendo-grid-command-column title="command" [width]="220">
+        <kendo-grid-command-column title="" [width]="220">
           <ng-template kendoGridCellTemplate let-isNew="isNew">
             <button kendoGridEditCommand type="button" [primary]="true">
               Edit
             </button>
             <button kendoGridRemoveCommand type="button">Remove</button>
-            <button
-              kendoGridSaveCommand
-              type="button"
-              [disabled]="myForm.invalid ?? true"
-            >
+            <button kendoGridSaveCommand type="button" [disabled]="myForm.invalid ?? true">
               {{ isNew ? "Add" : "Update" }}
             </button>
             <button kendoGridCancelCommand type="button">
@@ -228,24 +226,11 @@
             </button>
           </ng-template>
         </kendo-grid-command-column>
-        <!-- <kendo-grid-column field="UnitPrice" title="Unit Price" format="{0:c}"></kendo-grid-column>
-      <kendo-grid-column field="Discontinued" filter="boolean">
-          <ng-template kendoGridCellTemplate let-dataItem>
-              <input type="checkbox" [checked]="dataItem.Discontinued" disabled />
-          </ng-template>
-      </kendo-grid-column> -->
       </kendo-grid>
     </form>
   </div>
+
+
 </main>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 
 <router-outlet />
