@@ -1,27 +1,36 @@
-# ASAPClientsUI
+## ASAP_Clients_UI: Read Me
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.5.
+**Project Description**
 
-## Development server
+ASAP_Clients_UI is a single-page web application designed to manage client information within the ASAP_Clients ecosystem. It leverages a RESTful API provided by the backend ASAP_Clients project to create, edit, delete, and view client data. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+**Key Features**
 
-## Code scaffolding
+* **Client Management:**
+    * Create new client entries.
+    * Edit existing client information.
+    * Delete client records.
+    * View and search a list of all clients.
+* **Data Grid Integration:**
+    * Utilizes a Kendo UI Grid component for efficient client data visualization and interaction.
+* **Form Validation:**
+    * Enforces email and phone number validation to ensure data accuracy.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**Technology Stack:**
 
-## Build
+* **Frontend Framework:** Angular 17.3.5
+* **UI Components:** Kendo UI (**Note:** A valid Kendo UI license removes watermarks but is not required for basic application functionality)
+* **Programming Language:** TypeScript
+* **Runtime Environment:** Node.js
+* **Styling:** CSS
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+**Installation**
 
-## Running unit tests
+**Prerequisites:**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* Node.js (version 14.x or later) and npm (version 5.6 or later) installed on your development machine. You can verify your versions by running the following commands in your terminal:
 
-## Running end-to-end tests
+```bash
+node -v
+npm -v
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
