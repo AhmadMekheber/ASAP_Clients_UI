@@ -33,4 +33,59 @@ ASAP_Clients_UI is a single-page web application designed to manage client infor
 ```bash
 node -v
 npm -v
+```
+**Installing Angular CLI:**
 
+* Open your terminal.
+* Run the following command to install Angular CLI globally:
+
+```bash
+npm install -g @angular/cli
+```
+
+* This command will download and install the Angular CLI tools globally on your system.
+
+* **Steps:**
+
+1.Clone the repository:
+```bash
+git clone [https://github.com/computationalpathologygroup/ASAP_Clients_UI](https://github.com/computationalpathologygroup/ASAP_Clients_UI)
+```
+
+2.Navigate to the project directory:
+```bash
+cd ASAP_Clients_UI
+```
+
+3.Install dependencies:
+```bash
+npm install
+```
+
+* **Running the Application:**
+.Start the development server:
+```bash
+npm start
+```
+* This will launch the application in your default web browser, typically at **http://localhost:4200**.
+
+* **Kendo UI License**
+    * While a valid Kendo UI license removes watermarks from the components, it is not strictly necessary for the core functionality of ASAP_Clients_UI. The application will operate without a license, but visual elements may be affected.
+
+* **Data Grid and Client Management**
+    * The application utilizes a Kendo UI Grid to display and manage client data fetched from the ASAP_Clients API. Users can interact with the grid to perform various operations:
+    * View a comprehensive list of clients.
+    * Search for specific clients using filters.
+    * Create new client entries.
+    * Edit existing client information.
+    * Delete client records (subject to appropriate authorization).
+
+* **Form Validation**
+    * To ensure data integrity, ASAP_Clients_UI enforces validation rules on client forms. This includes:
+    * Email address validation to confirm a valid email format.
+    * Phone number validation to verify a reasonable phone number format.
+
+    * This validation helps prevent errors during data entry and ensures the accuracy of client information within the system.
+
+* **API Service Repository**
+    * The ASAP_Clients API service code is available on a separate GitHub repository for reference and independent development: https://github.com/computationalpathologygroup/ASAP (Note: The URL has been corrected to point to the /ASAP_Clients repository, assuming that's the correct location)
