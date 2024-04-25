@@ -99,9 +99,13 @@ export class AppComponent {
     {
       this.failureMsg = error.error.status + " - " + error.error.title;
     }
-    else 
+    else if (error?.error?.status == undefined)
     {
       this.failureMsg = error.error;
+    }
+    else 
+    {
+      this.failureMsg = "Invalid Data";
     }
     console.log(error, "Save Error");
   }
