@@ -20,19 +20,15 @@
     --gray-700: oklch(36.98% 0.014 302.71);
     --gray-400: oklch(70.9% 0.015 304.04);
 
-    --red-to-pink-to-purple-vertical-gradient: linear-gradient(
-      180deg,
-      var(--orange-red) 0%,
-      var(--vivid-pink) 50%,
-      var(--electric-violet) 100%
-    );
+    --red-to-pink-to-purple-vertical-gradient: linear-gradient(180deg,
+        var(--orange-red) 0%,
+        var(--vivid-pink) 50%,
+        var(--electric-violet) 100%);
 
-    --red-to-pink-to-purple-horizontal-gradient: linear-gradient(
-      90deg,
-      var(--orange-red) 0%,
-      var(--vivid-pink) 50%,
-      var(--electric-violet) 100%
-    );
+    --red-to-pink-to-purple-horizontal-gradient: linear-gradient(90deg,
+        var(--orange-red) 0%,
+        var(--vivid-pink) 50%,
+        var(--electric-violet) 100%);
 
     --pill-accent: var(--bright-blue);
 
@@ -80,7 +76,7 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
-    max-width: 700px;
+    max-width: 1024px;
     margin-bottom: 3rem;
   }
 
@@ -133,9 +129,11 @@
   .pill-group .pill:nth-child(6n + 1) {
     --pill-accent: var(--bright-blue);
   }
+
   .pill-group .pill:nth-child(6n + 2) {
     --pill-accent: var(--french-violet);
   }
+
   .pill-group .pill:nth-child(6n + 3),
   .pill-group .pill:nth-child(6n + 4),
   .pill-group .pill:nth-child(6n + 5) {
@@ -162,7 +160,7 @@
     fill: var(--gray-900);
   }
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 1024px) {
     .content {
       flex-direction: column;
       width: max-content;
@@ -179,29 +177,65 @@
 
 <main class="main">
   <div class="content">
-    <kendo-grid
-    [data]="gridItems | async"
-    [pageSize]="pageSize"
-    [skip]="skip"
-    [pageable]="true"
-    (pageChange)="pageChange($event)"
-    [sortable]="true"
-    [sort]="sortDescriptor"
-    (sortChange)="handleSortChange($event)"
-    [height]="450"
-    >
-    <kendo-grid-column field="ID" title="ID"></kendo-grid-column>
-    <kendo-grid-column field="FirstName" title="First Name"></kendo-grid-column>
-    <kendo-grid-column field="LastName" title="Last Name"></kendo-grid-column>
-    <kendo-grid-column field="Email" title="Email"></kendo-grid-column>
-    <kendo-grid-column field="PhoneNumber" title="Phone Number"></kendo-grid-column>
-    <!-- <kendo-grid-column field="UnitPrice" title="Unit Price" format="{0:c}"></kendo-grid-column>
-    <kendo-grid-column field="Discontinued" filter="boolean">
-        <ng-template kendoGridCellTemplate let-dataItem>
-            <input type="checkbox" [checked]="dataItem.Discontinued" disabled />
+    <form novalidate #myForm="ngForm">
+      <kendo-grid [data]="gridItems | async" [pageSize]="pageSize" [skip]="skip" [pageable]="true"
+        (pageChange)="pageChange($event)" [sortable]="true" [sort]="sortDescriptor"
+        (sortChange)="handleSortChange($event)" [height]="600"
+        (add)="addHandler($event, myForm)"
+        (edit)="editHandler($event)"
+        (cancel)="cancelHandler($event)"
+        (save)="saveHandler($event)">
+        <ng-template kendoGridToolbarTemplate>
+          <button kendoGridAddCommand type="button">Add new</button>
         </ng-template>
-    </kendo-grid-column> -->
-</kendo-grid>
+        <!-- <kendo-grid-column field="id" title="ID"></kendo-grid-column> -->
+        <kendo-grid-column field="firstName" title="First Name">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <kendo-textbox [(ngModel)]="dataItem.firstName" name="firstName" required></kendo-textbox>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="lastName" title="Last Name">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <kendo-textbox [(ngModel)]="dataItem.lastName" name="lastName" required></kendo-textbox>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="email" title="Email">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <kendo-textbox [(ngModel)]="dataItem.email" name="email" required></kendo-textbox>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="phoneNumber" title="Phone Number">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <kendo-textbox [(ngModel)]="dataItem.phoneNumber" name="phoneNumber" required></kendo-textbox>
+          </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-command-column title="command" [width]="220">
+          <ng-template kendoGridCellTemplate let-isNew="isNew">
+            <button kendoGridEditCommand type="button" [primary]="true">
+              Edit
+            </button>
+            <button kendoGridRemoveCommand type="button">Remove</button>
+            <button
+              kendoGridSaveCommand
+              type="button"
+              [disabled]="myForm.invalid ?? true"
+            >
+              {{ isNew ? "Add" : "Update" }}
+            </button>
+            <button kendoGridCancelCommand type="button">
+              {{ isNew ? "Discard changes" : "Cancel" }}
+            </button>
+          </ng-template>
+        </kendo-grid-command-column>
+        <!-- <kendo-grid-column field="UnitPrice" title="Unit Price" format="{0:c}"></kendo-grid-column>
+      <kendo-grid-column field="Discontinued" filter="boolean">
+          <ng-template kendoGridCellTemplate let-dataItem>
+              <input type="checkbox" [checked]="dataItem.Discontinued" disabled />
+          </ng-template>
+      </kendo-grid-column> -->
+      </kendo-grid>
+    </form>
   </div>
 </main>
 

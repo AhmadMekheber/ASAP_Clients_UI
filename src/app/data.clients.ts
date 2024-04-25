@@ -1,7 +1,7 @@
 export class Client {
-    public ID: number = 0;
-    public FirstName = '';
-    public LastName = '';
-    public Email = '';
-    public PhoneNumber = '';
+    public id?: number;
+    public firstName?: string = "";
+    public lastName?: string = "";
+    public email?: string = "";
+    public phoneNumber?: string = "";
 }
